@@ -4,6 +4,12 @@ inputs:
   token:
     description: The VENLY_GITHUB_ACTIONS_TOKEN
     required: true
+  node_version:
+    default: 18.x
+    description: Node Version to use
+  work_directory:
+    description: Optional path to set for the working directory
+    required: false
 runs:
   using: "composite"
   steps:
@@ -38,10 +44,11 @@ runs:
         token: ${{ inputs.token }}
 
     - name: Use Node.js ${{ inputs.node_version }}
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4.0.2
       id: node_setup
       with:
         node-version: ${{ inputs.node_version }}
+        check-latest: true
     # =====================================================
     # Release
     # =====================================================
@@ -71,8 +78,13 @@ runs:
       run: |
         #!/bin/bash
         set -x
-        find . -name 'package.json' | while read -r PACKAGE_JSON_PATH; do
-          if [[ -n "$PACKAGE_JSON_PATH" ]]; then
+        if [ -n "${{ inputs.work_directory }}" ]; then
+          cd "${{ inputs.work_directory }}"
+        fi
+        PACKAGE_JSON_PATH="./package.json"
+
+        echo "Looking for package.json in" 
+        if [[ -n "$PACKAGE_JSON_PATH" ]]; then
             VERSION=$(jq -r '.version' "$PACKAGE_JSON_PATH")
             if [[ "$VERSION" == "null" || -z "$VERSION" ]]; then
               echo "No version field found in $PACKAGE_JSON_PATH"
@@ -82,7 +94,6 @@ runs:
               echo "release_version_raw=$VERSION" >> $GITHUB_ENV
             fi
           fi
-        done
 
     - name: Extract semantic version
       shell: bash

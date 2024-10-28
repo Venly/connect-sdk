@@ -4,6 +4,9 @@ inputs:
   token:
     description: The VENLY_GITHUB_ACTIONS_TOKEN
     required: true
+  node_version:
+    default: 18.x
+    description: Node Version to use
 runs:
   using: "composite"
   steps:
@@ -36,11 +39,14 @@ runs:
         token: ${{ inputs.token }}
 
     - name: Use Node.js ${{ inputs.node_version }}
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4.0.2
       id: node_setup
       with:
         node-version: ${{ inputs.node_version }}
-
+        check-latest: true
+    - name: DEBUG
+      shell: bash
+      run: which npm
     # =====================================================
     # Release
     # =====================================================

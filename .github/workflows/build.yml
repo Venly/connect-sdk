@@ -1,15 +1,13 @@
 name: 🏗️ Build
 on:
   push:
-    tags-ignore:
-      - v*
     paths-ignore:
       - .github/**
   pull_request:
   workflow_dispatch:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 permissions:
   actions: read
@@ -39,20 +37,8 @@ jobs:
       - name: 🔍 Get Version
         uses: ./.github/actions/get_version
 
-      - name: Check if last commit is a version bump
-        id: check_is_version_bump
-        if: (startsWith(github.ref, 'refs/heads/develop') || startsWith(github.ref, 'refs/heads/hotfix-') || startsWith(github.ref, 'refs/heads/release-'))
-        uses: ./.github/actions/check_is_version_bump
-
-      - name: Not bumping the version or publishing to npm
-        if: (steps.check_is_version_bump.outputs.is_version_bump == 'true')
-        run: |
-          #!/bin/bash
-          set -x
-          echo "Not bumping the version or publishing to npm because this is a version bump commit."
-
       - name: ⬆️ Bump Version
-        if: ((steps.check_is_version_bump.outputs.is_version_bump != 'true') && (startsWith(github.ref, 'refs/heads/develop') || startsWith(github.ref, 'refs/heads/hotfix-') || startsWith(github.ref, 'refs/heads/release-')))
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' && (startsWith(github.ref, 'refs/heads/develop') || startsWith(github.ref, 'refs/heads/hotfix-') || startsWith(github.ref, 'refs/heads/release-'))
         uses: ./.github/actions/bump_version
         with:
           token: ${{ secrets.VENLY_GITHUB_ACTIONS_TOKEN }}
@@ -70,13 +56,7 @@ jobs:
           npm i
           npm run build
 
-      - name: 📋 Log Current Version Before Publish
-        if: (steps.check_is_version_bump.outputs.is_version_bump != 'true')
-        run: |
-          echo "Version before publishing: $(jq -r '.version' package.json)"
-
       - name: 🚀 Publish Npm
-        if: ((steps.check_is_version_bump.outputs.is_version_bump != 'true') && (startsWith(github.ref, 'refs/heads/develop') || startsWith(github.ref, 'refs/heads/hotfix-') || startsWith(github.ref, 'refs/heads/release-')))
         uses: ./.github/actions/publish_npm
         with:
           npm_token: ${{ secrets.NPM_KEY }}
