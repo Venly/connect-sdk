@@ -42,6 +42,7 @@ jobs:
         uses: ./.github/actions/bump_version
         with:
           token: ${{ secrets.VENLY_GITHUB_ACTIONS_TOKEN }}
+          commit_message: "chore: bump version [skip ci]"
 
       - name: 🛠️ Setup Node.js 16.x
         uses: actions/setup-node@v3
