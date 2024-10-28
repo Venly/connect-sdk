@@ -16,4 +16,5 @@ export enum SecretType {
     XPLA = 'XPLA',
     BASE = 'BASE',
     OPTIMISM = 'OPTIMISM',
+    SOLANA = 'SOLANA',
 }
