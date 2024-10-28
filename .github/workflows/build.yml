@@ -2,7 +2,9 @@ name: 🏗️ Build
 on:
   push:
     paths-ignore:
-      - .github/**
+      - ".github/**"
+      - "package.json"
+      - "package-lock.json"
   pull_request:
   workflow_dispatch:
 concurrency:

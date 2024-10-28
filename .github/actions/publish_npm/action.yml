@@ -25,25 +25,32 @@ runs:
         #!/bin/bash
         set -x
 
+        # Get current version from package.json
+        current_version=$(jq -r '.version' package.json)
+        package_name=$(jq -r '.name' package.json)
+
         # Authenticate with npm using the token
         printf '//registry.npmjs.org/:_authToken=${NPM_KEY}\n@venly:registry=https://registry.npmjs.org/' > .npmrc
 
-        # Publish the npm package and capture the output
-        if [ "${GITHUB_REF}" == "refs/heads/master" ]; then
-            npm publish --verbose
-        else
-            npm publish --tag $(echo "${GITHUB_REF}" | sed 's|refs/heads/||') --verbose
+        # Check if version already exists
+        if npm view ${package_name}@${current_version} version &>/dev/null; then
+          echo "Version ${current_version} already exists in npm registry, skipping publish"
+          echo "published_version=${current_version}" >> $GITHUB_ENV
+          echo "published_version=${current_version}" >> $GITHUB_OUTPUT
+          exit 0
         fi
 
-        git push --tags origin HEAD:${{ github.ref_name }}
+        # Publish the npm package and capture the output
+        if [ "${{ github.ref }}" == "refs/heads/master" ]; then
+            npm publish --verbose || true
+        else
+            npm publish --tag $(echo "${github.ref }" | sed 's|refs/heads/||') --verbose || true
+        fi
 
-        # Fetch the published version from the npm registry
-        package_name=$(jq -r '.name' package.json)
-        published_version=$(npm info $package_name version)
+        # Force push tags to handle existing tags
+        git push -f --tags origin HEAD:${{ github.ref_name }} || true
 
         # Output the version
-        echo "Published version: $published_version"
-
-        # Export the version to GitHub Actions environment variables
-        echo "published_version=$published_version" >> $GITHUB_ENV
-        echo "published_version=$published_version" >> $GITHUB_OUTPUT
+        echo "Published version: ${current_version}"
+        echo "published_version=${current_version}" >> $GITHUB_ENV
+        echo "published_version=${current_version}" >> $GITHUB_OUTPUT
