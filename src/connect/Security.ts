@@ -89,7 +89,7 @@ export class Security {
                 if (auth.clientId) {
                     const params: any = {
                         client_id: auth.clientId,
-                        refresh_token: auth.refreshToken
+                        id_token_hint: auth.idToken
                     };
 
                     const searchParams = Object.keys(params).map((key) => {
