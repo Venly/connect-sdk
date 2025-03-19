@@ -34,11 +34,10 @@ runs:
         echo "new_version=$new_version" >> $GITHUB_ENV
         echo "new_version=$new_version" >> $GITHUB_OUTPUT
 
-    - name: Commit and push version bump
-      id: commit_and_push_version_bump
+    - name: Push version bump
+      id: push_version_bump
       shell: bash
       run: |
         #!/bin/bash
         set -x
-        git commit -am "Bump Build Version"
         git push origin
