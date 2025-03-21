@@ -1,8 +1,8 @@
-import { KeycloakInstance } from 'keycloak-js';
-import { Wallet }           from './wallet/Wallet';
+import KeycloakType from '../types/keycloak';
+import { Wallet }   from './wallet/Wallet';
 
 export interface Account {
     wallets: Wallet[],
-    auth: KeycloakInstance,
+    auth: KeycloakType,
     isAuthenticated: boolean
 }

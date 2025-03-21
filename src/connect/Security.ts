@@ -1,4 +1,4 @@
-import { KeycloakConfig, KeycloakInitOptions, KeycloakInstance, KeycloakLoginOptions } from 'keycloak-js';
+import type KeycloakType, { KeycloakConfig, KeycloakInitOptions, KeycloakLoginOptions } from '../types/keycloak';
 
 import { AuthenticationOptions } from './connect';
 import { WindowMode }            from '../models/WindowMode';
@@ -82,7 +82,7 @@ export class Security {
         }
     }
 
-    public static logout(auth: Keycloak.KeycloakInstance): Promise<void> {
+    public static logout(auth: KeycloakType): Promise<void> {
         if (auth.authenticated && auth.clientId) {
             return new Promise<void>(async (resolve: () => void,
                                             reject: (reason?: any) => void) => {
@@ -132,11 +132,11 @@ export class Security {
         }
     }
 
-    private static keycloak: KeycloakInstance;
+    private static keycloak: KeycloakType;
 
     private static updateTokenInterval: any;
     private static authenticatedListeners: Map<EventTypes, any> = new Map<EventTypes, any>();
-    private static popupWindow: PopupWindowAsync;
+    private static popupWindow?: PopupWindowAsync;
     private static logoutListener: any;
     private static isLoginPopupClosedInterval?: any;
 
@@ -219,7 +219,7 @@ export class Security {
     };
 
     private static createLogoutListener = async function(eventType: EventTypes,
-                                                         auth: Keycloak.KeycloakInstance,
+                                                         auth: KeycloakType,
                                                          resolve: () => void,
                                                          reject: any) {
         return (message: MessageEvent) => {
@@ -349,7 +349,7 @@ export class Security {
 
     private static async keycloakLogin(config: any,
                                        loginOptions?: KeycloakLoginOptions): Promise<LoginResult> {
-        const Keycloak: { default: (config?: KeycloakConfig | string | undefined) => KeycloakInstance } = await import ('keycloak-js');
+        const Keycloak: { default: (config?: KeycloakConfig | string | undefined) => KeycloakType } = await import ('keycloak-js');
         Security.keycloak = Keycloak.default(config);
         return new Promise((resolve,
                             reject) => {
@@ -374,8 +374,8 @@ export class Security {
     }
 
     private static async initKeycloak(config: any,
-                                      initOptions: Keycloak.KeycloakInitOptions): Promise<LoginResult> {
-        const Keycloak: { default: (config?: KeycloakConfig | string | undefined) => KeycloakInstance } = await import ('keycloak-js');
+                                      initOptions: KeycloakInitOptions): Promise<LoginResult> {
+        const Keycloak: { default: (config?: KeycloakConfig | string | undefined) => KeycloakType } = await import ('keycloak-js');
         Security.keycloak = Keycloak.default(config);
         return new Promise((resolve,
                             reject) => {
@@ -429,7 +429,7 @@ export class Security {
 }
 
 export interface LoginResult {
-    keycloak?: KeycloakInstance;
+    keycloak?: KeycloakType;
     authenticated: boolean;
     popupWindow?: PopupWindowAsync;
 }

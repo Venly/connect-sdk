@@ -44,15 +44,15 @@
   "dependencies": {
     "@types/node": "^12.7.1",
     "es6-promise": "^4.2.8",
-    "keycloak-js": "11.0.2"
+    "keycloak-js": "26.0.8",
+    "tslib": "^2.8.1"
   },
   "devDependencies": {
-    "awesome-typescript-loader": "^5.2.1",
     "ts-loader": "^6.0.4",
-    "typedoc": "^0.20.36",
-    "typescript": "^3.7.2",
-    "webpack": "^4.39.1",
-    "webpack-cli": "^3.3.6"
+    "typedoc": "^0.25.13",
+    "typescript": "^5.3.3",
+    "webpack": "^5.98.0",
+    "webpack-cli": "^5.1.4"
   },
   "files": [
     "dist",
