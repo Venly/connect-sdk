@@ -1,4 +1,5 @@
-import type KeycloakType, { KeycloakConfig, KeycloakInitOptions, KeycloakLoginOptions } from '../types/keycloak';
+import type KeycloakType                                                  from '../types/keycloak';
+import type { KeycloakConfig, KeycloakInitOptions, KeycloakLoginOptions } from '../types/keycloak';
 
 import { AuthenticationOptions } from './connect';
 import { WindowMode }            from '../models/WindowMode';
