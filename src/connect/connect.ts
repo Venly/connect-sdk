@@ -1,4 +1,4 @@
-import KeycloakType from '../types/keycloak';
+import { KeycloakInstance } from 'keycloak-js';
 
 import { LoginResult, Security }             from './Security';
 import { Api }                               from '../api/Api';
@@ -22,7 +22,7 @@ export class VenlyConnect {
     public loginResult?: LoginResult;
 
     private clientId: string;
-    private auth?: KeycloakType;
+    private auth?: KeycloakInstance;
 
     constructor(clientId: string,
                 options?: ConstructorOptions) {
@@ -124,14 +124,14 @@ export class VenlyConnect {
             auth: this.auth,
             isAuthenticated: loginResult.authenticated,
             authenticated(this: AuthenticationResult,
-                          callback: (auth: KeycloakType) => void) {
+                          callback: (auth: KeycloakInstance) => void) {
                 if (loginResult.authenticated && loginResult.keycloak) {
                     callback(loginResult.keycloak);
                 }
                 return this;
             },
             notAuthenticated(this: AuthenticationResult,
-                             callback: (auth?: KeycloakType) => void) {
+                             callback: (auth?: KeycloakInstance) => void) {
                 if (!loginResult.authenticated) {
                     callback(loginResult.keycloak);
                 }
@@ -142,10 +142,10 @@ export class VenlyConnect {
 }
 
 export interface AuthenticationResult {
-    auth?: KeycloakType,
+    auth?: KeycloakInstance,
     isAuthenticated: boolean,
-    authenticated: (onAuthenticated: (auth: KeycloakType) => void) => AuthenticationResult;
-    notAuthenticated: (onNotAuthenticated: (auth?: KeycloakType) => void) => AuthenticationResult;
+    authenticated: (onAuthenticated: (auth: KeycloakInstance) => void) => AuthenticationResult;
+    notAuthenticated: (onNotAuthenticated: (auth?: KeycloakInstance) => void) => AuthenticationResult;
 }
 
 export interface ConstructorOptions {

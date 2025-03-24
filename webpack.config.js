@@ -15,13 +15,9 @@ module.exports = {
         rules: [
             {
                 test: /\.tsx?$/,
-                use: {
-                    loader: 'ts-loader',
-                    options: {
-                        compilerOptions: {
-                            declaration: false
-                        }
-                    }
+                loader: 'awesome-typescript-loader',
+                query: {
+                    declaration: false,
                 },
                 include: [
                     path.resolve(__dirname, 'src')

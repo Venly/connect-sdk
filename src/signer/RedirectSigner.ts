@@ -45,7 +45,7 @@ export class RedirectSigner implements Signer {
                 this.bearerTokenProvider,
                 redirectOptions
             );
-            resolve({status: 'SUCCESS'});
+            resolve();
         });
     }
 
@@ -90,7 +90,7 @@ export class RedirectSigner implements Signer {
         return new Promise<SignerResult>((resolve,
                                           reject) => {
             Utils.http().postInForm(`${Utils.urls.connect}/transaction/execute/${transactionId}`, {}, this.bearerTokenProvider, redirectOptions);
-            resolve({status: 'SUCCESS'});
+            resolve();
         });
     }
 
@@ -99,7 +99,7 @@ export class RedirectSigner implements Signer {
         return new Promise<SignerResult>((resolve,
                                           reject) => {
             Utils.http().postInForm(`${Utils.urls.connect}/transaction/resubmit/${transactionId}`, {}, this.bearerTokenProvider, redirectOptions);
-            resolve({status: 'SUCCESS'});
+            resolve();
         });
     }
 
@@ -108,7 +108,7 @@ export class RedirectSigner implements Signer {
         return new Promise<SignerResult>((resolve,
                                           reject) => {
             Utils.http().postInForm(`${Utils.urls.connect}/transaction/cancel/${transactionId}`, {}, this.bearerTokenProvider, redirectOptions);
-            resolve({status: 'SUCCESS'});
+            resolve();
         });
     }
 
@@ -117,7 +117,7 @@ export class RedirectSigner implements Signer {
         return new Promise<SignerResult>((resolve,
                                           reject) => {
             Utils.http().postInForm(`${Utils.urls.connect}/transaction/execute`, buildTransactionData, this.bearerTokenProvider, redirectOptions);
-            resolve({status: 'SUCCESS'});
+            resolve();
         });
     }
 
@@ -126,7 +126,7 @@ export class RedirectSigner implements Signer {
         return new Promise<SignerResult>((resolve,
                                           reject) => {
             Utils.http().postInForm(`${Utils.urls.connect}/transaction/sign/${signatureRequest.type.toLowerCase()}`, signatureRequest, this.bearerTokenProvider, redirectOptions);
-            resolve({status: 'SUCCESS'});
+            resolve();
         });
     }
 
@@ -145,7 +145,7 @@ export class RedirectSigner implements Signer {
         return new Promise<SignerResult>((resolve,
                                           reject) => {
             Utils.http().postInForm(`${Utils.urls.connect}/transaction/sign`, buildSignatureData, this.bearerTokenProvider, redirectOptions);
-            resolve({status: 'SUCCESS'});
+            resolve();
         });
     }
 
@@ -165,7 +165,7 @@ export class RedirectSigner implements Signer {
         return new Promise<SignerResult>((resolve,
                                           reject) => {
             Utils.http().postInForm(`${Utils.urls.connect}/confirm/${request.confirmationRequestType.toLowerCase()}`, request, this.bearerTokenProvider, redirectOptions);
-            resolve({status: 'SUCCESS'});
+            resolve();
         });
     }
 }
