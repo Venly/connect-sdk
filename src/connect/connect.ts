@@ -64,7 +64,7 @@ export class VenlyConnect {
                                       reject: any) => {
                 const logoutOptions = {};
                 if (options && options.redirectUri) {
-                    Object.assign(logoutOptions, {redirectUri: options.redirectUri});
+                    Object.assign(logoutOptions, {post_logout_redirect_uri: options.redirectUri});
                 }
                 this.auth ? this.auth.logout(logoutOptions).then(() => resolve()).catch(() => reject) : resolve();
             })
