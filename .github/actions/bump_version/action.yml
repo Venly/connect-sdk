@@ -34,6 +34,14 @@ runs:
         echo "new_version=$new_version" >> $GITHUB_ENV
         echo "new_version=$new_version" >> $GITHUB_OUTPUT
 
+    - name: Commit version bump
+      id: commit_version_bump
+      shell: bash
+      run: |
+        #!/bin/bash
+        set -x
+        git commit -a -m ${{ steps.bump_version.outputs.new_version }}
+
     - name: Push version bump
       id: push_version_bump
       shell: bash
