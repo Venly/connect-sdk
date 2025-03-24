@@ -385,6 +385,7 @@ export class Security {
                         if (authenticated) {
                             Security.setUpdateTokenInterval();
                         }
+                        Security.removeLoginState();
                         resolve({
                             keycloak: Security.keycloak,
                             authenticated,

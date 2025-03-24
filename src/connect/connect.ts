@@ -67,6 +67,8 @@ export class VenlyConnect {
                 if (this.auth) {
                     if (options && options.redirectUri) {
                         logoutOptions.post_logout_redirect_uri = options.redirectUri;
+                    } else {
+                        logoutOptions.post_logout_redirect_uri = window.location.href;
                     }
                     if (this.auth.clientId) {
                         logoutOptions.client_id = this.auth.clientId;
