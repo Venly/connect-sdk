@@ -77,10 +77,10 @@ export class VenlyConnect {
                     const searchParams = new URLSearchParams(logoutOptions).toString();
                     const logoutURL = `${Utils.urls.login}/realms/Arkane/protocol/openid-connect/logout`
 
-                    Utils.openExternalUrl(searchParams ? `${logoutURL}?${searchParams}` : logoutURL);
+                    Utils.openExternalUrl(searchParams ? `${logoutURL}?${searchParams}` : logoutURL, false);
                 } else {
                     if (options && options.redirectUri) {
-                        Utils.openExternalUrl(options.redirectUri);
+                        Utils.openExternalUrl(options.redirectUri, false);
                     } else {
                         resolve();
                     }
