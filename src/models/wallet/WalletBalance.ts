@@ -1,4 +1,5 @@
 import {SecretType} from '../SecretType';
+import { WalletBalanceExchange } from './WalletBalanceExchange';
 
 export class WalletBalance {
     public secretType?: SecretType; // needs to change in API to secretType
@@ -9,4 +10,5 @@ export class WalletBalance {
     public rawBalance!: string;
     public rawGasBalance!: string;
     public decimals!: number;
+    public exchange?: WalletBalanceExchange;
 }
