@@ -46,6 +46,6 @@ export class SuiPackageExecutionExecutionRequest extends TransactionRequest {
     public value!: number;
     public targetPackage!: string;
     public functionName!: string;
-    public commands: SuiCommand[] = []
+    public commands: SuiCommand[] = [];
     public inputs: SuiInput[] = [];
 }
