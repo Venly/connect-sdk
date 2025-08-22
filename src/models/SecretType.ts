@@ -17,4 +17,5 @@ export enum SecretType {
     BASE = 'BASE',
     OPTIMISM = 'OPTIMISM',
     SOLANA = 'SOLANA',
+    SUI = 'SUI'
 }

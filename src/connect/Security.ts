@@ -89,7 +89,8 @@ export class Security {
                 if (auth.clientId) {
                     const params: any = {
                         client_id: auth.clientId,
-                        id_token_hint: auth.idToken
+                        id_token_hint: auth.idToken,
+                        refresh_token: auth.refreshToken
                     };
 
                     const searchParams = Object.keys(params).map((key) => {
@@ -384,6 +385,7 @@ export class Security {
                         if (authenticated) {
                             Security.setUpdateTokenInterval();
                         }
+                        Security.removeLoginState();
                         resolve({
                             keycloak: Security.keycloak,
                             authenticated,

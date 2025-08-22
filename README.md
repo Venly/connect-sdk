@@ -6,8 +6,8 @@ implications (e.g: creating signatures). Venly Connect wraps all of Venly's func
 
 Documentation on how to use it can be found on below pages:
 
-* Introduction: https://docs.venly.io/widget/widget/introduction
-* Getting started: https://docs.venly.io/widget/widget/getting-started
+* Introduction: https://docs.venly.io/docs/widget-overview
+* Getting started: https://docs.venly.io/docs/widget-getting-started
 * All of Venly's documentation: https://docs.venly.io/
 
 ## v2 Migration Guide

@@ -41,10 +41,10 @@ runs:
         fi
 
         # Publish the npm package and capture the output
-        if [ "${{ github.ref }}" == "refs/heads/master" ]; then
+        if [ "${{ github.ref }}" == "refs/heads/main" ]; then
             npm publish --verbose || true
         else
-            npm publish --tag $(echo "${github.ref }" | sed 's|refs/heads/||') --verbose || true
+            npm publish --tag $(echo "${{ github.ref }}" | sed 's|refs/heads/||') --verbose || true
         fi
 
         # Force push tags to handle existing tags

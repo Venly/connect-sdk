@@ -41,7 +41,7 @@ export class VenlyConnect {
     }
 
     public get signer() {
-      return SignerFactory.createSignerFor(this.windowMode, this._bearerTokenProvider, this.clientId, { useOverlay: this.useOverlayWithPopup });
+        return SignerFactory.createSignerFor(this.windowMode, this._bearerTokenProvider, this.clientId, {useOverlay: this.useOverlayWithPopup});
     }
 
     public async checkAuthenticated(options?: AuthenticationOptions): Promise<AuthenticationResult> {
@@ -62,11 +62,31 @@ export class VenlyConnect {
         if (windowMode === WindowMode.REDIRECT) {
             return new Promise<void>((resolve: any,
                                       reject: any) => {
-                const logoutOptions = {};
-                if (options && options.redirectUri) {
-                    Object.assign(logoutOptions, {redirectUri: options.redirectUri});
+
+                const logoutOptions: Record<string, string> = {};
+                if (this.auth) {
+                    if (options && options.redirectUri) {
+                        logoutOptions.post_logout_redirect_uri = options.redirectUri;
+                    } else {
+                        logoutOptions.post_logout_redirect_uri = window.location.href;
+                    }
+                    if (this.auth.clientId) {
+                        logoutOptions.client_id = this.auth.clientId;
+                    }
+                    if (this.auth.idToken) {
+                        logoutOptions.id_token_hint = this.auth.idToken;
+                    }
+                    const searchParams = new URLSearchParams(logoutOptions).toString();
+                    const logoutURL = `${Utils.urls.login}/realms/Arkane/protocol/openid-connect/logout`
+
+                    Utils.openExternalUrl(searchParams ? `${logoutURL}?${searchParams}` : logoutURL, false);
+                } else {
+                    if (options && options.redirectUri) {
+                        Utils.openExternalUrl(options.redirectUri, false);
+                    } else {
+                        resolve();
+                    }
                 }
-                this.auth ? this.auth.logout(logoutOptions).then(() => resolve()).catch(() => reject) : resolve();
             })
         } else {
             if (this.auth) {
