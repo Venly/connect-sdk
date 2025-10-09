@@ -39,19 +39,13 @@ export class Security {
 
     private static loginRedirect(clientId: string,
                                  options?: AuthenticationOptions): Promise<LoginResult> {
-        let config = Security.getConfig(clientId);
-        const loginOptions: KeycloakLoginOptions = {};
-        if (options) {
-            if (options.idpHint) {
-                loginOptions.idpHint = options.idpHint;
-                if (options.idpHint === 'password' && options.emailHint) {
-                    loginOptions.loginHint = options.emailHint;
-                }
-            }
-            if (options.redirectUri) {
-                loginOptions.redirectUri = options.redirectUri;
-            }
-        }
+        const config = Security.getConfig(clientId);
+        const loginOptions: KeycloakLoginOptions = {
+            ...(options?.idpHint && { idpHint: options.idpHint }),
+            ...(options?.idpHint === 'password' && options?.emailHint && { loginHint: options.emailHint }),
+            ...(options?.redirectUri && { redirectUri: options.redirectUri }),
+            ...(options?.prompt && { prompt: options.prompt }),
+        };
         return this.keycloakLogin(config, loginOptions);
     }
 

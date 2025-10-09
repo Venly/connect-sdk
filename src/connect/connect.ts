@@ -184,4 +184,5 @@ export interface AuthenticationOptions {
     idpHint?: 'password' | string;
     emailHint?: string;
     forcePopup?: boolean;
+    prompt?: 'none'|'login';
 }
