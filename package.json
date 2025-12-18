@@ -50,9 +50,19 @@
     "awesome-typescript-loader": "^5.2.1",
     "ts-loader": "^6.0.4",
     "typedoc": "^0.20.36",
-    "typescript": "^3.7.2",
-    "webpack": "^4.39.1",
-    "webpack-cli": "^3.3.6"
+    "typescript": "^3.9.10",
+    "webpack": "^4.47.0",
+    "webpack-cli": "^3.3.12"
+  },
+  "overrides": {
+    "marked": "^4.3.0",
+    "braces": "^3.0.3",
+    "micromatch": "^4.0.8",
+    "semver": "^7.6.3",
+    "cross-spawn": "^7.0.6",
+    "es5-ext": "^0.10.64",
+    "loader-utils": "^2.0.4",
+    "brace-expansion": "^2.0.1"
   },
   "files": [
     "dist",
