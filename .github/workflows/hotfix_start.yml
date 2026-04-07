@@ -8,11 +8,18 @@ jobs:
   hotfix:
     runs-on: ubuntu-latest
     steps:
+      - name: 🔑 Generate CI token
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.CI_BOT_APP_ID }}
+          private-key: ${{ secrets.CI_BOT_PRIVATE_KEY }}
+
       - name: ✅ Checkout
         uses: actions/checkout@v4
         with:
-          token: ${{ github.token }}
+          token: ${{ steps.app-token.outputs.token }}
           fetch-depth: 0
       - uses: ./.github/actions/hotfix_start
         with:
-          token: ${{ github.token }}
+          token: ${{ steps.app-token.outputs.token }}
