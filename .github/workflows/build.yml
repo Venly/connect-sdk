@@ -22,6 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🔑 Generate CI token
+        if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && (startsWith(github.ref, 'refs/heads/develop') || startsWith(github.ref, 'refs/heads/main') || startsWith(github.ref, 'refs/heads/hotfix-') || startsWith(github.ref, 'refs/heads/release-'))
         id: app-token
         uses: actions/create-github-app-token@v1
         with:
@@ -31,7 +32,7 @@ jobs:
       - name: ✅ Checkout
         uses: actions/checkout@v4
         with:
-          token: ${{ steps.app-token.outputs.token }}
+          token: ${{ steps.app-token.outputs.token || github.token }}
 
       - name: 🔍 Get Version
         uses: ./.github/actions/get_version
