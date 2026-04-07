@@ -12,20 +12,10 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
-  actions: read
-  checks: write
   contents: write
-  deployments: read
-  id-token: write
-  issues: read
-  discussions: read
-  packages: read
-  pages: read
-  pull-requests: read
-  repository-projects: read
-  security-events: read
-  statuses: read
-run-name: 🏗️ Build ${{ github.ref_name	}}
+  actions: read
+
+run-name: 🏗️ Build ${{ github.ref_name }}
 
 jobs:
   build:
@@ -44,13 +34,12 @@ jobs:
         uses: ./.github/actions/bump_version
         with:
           token: ${{ github.token }}
-          commit_message: "chore: bump version [skip ci]"
 
-      - name: 🛠️ Setup Node.js 16.x
-        uses: actions/setup-node@v3
+      - name: 🛠️ Setup Node.js 18.x
+        uses: actions/setup-node@v4
         id: node_setup
         with:
-          node-version: 16.x
+          node-version: 18.x
 
       - name: 🏗️ Build Node
         run: |
@@ -64,7 +53,6 @@ jobs:
         uses: ./.github/actions/publish_npm
         with:
           npm_token: ${{ secrets.NPM_KEY }}
-          token: ${{ github.token }}
 
       - name: 🔄 Merge Back
         if: startsWith(github.ref, 'refs/heads/hotfix-') || startsWith(github.ref, 'refs/heads/release-')

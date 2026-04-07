@@ -2,19 +2,7 @@ name: 🩹 Hotfix Finish
 on:
   workflow_dispatch:
 permissions:
-  actions: read
-  checks: write
   contents: write
-  deployments: read
-  id-token: write
-  issues: write
-  discussions: read
-  packages: read
-  pages: read
-  pull-requests: write
-  repository-projects: read
-  security-events: read
-  statuses: read
 run-name: 🩹 hotfix-finish
 jobs:
   hotfix:
