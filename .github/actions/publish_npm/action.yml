@@ -1,10 +1,6 @@
 name: 🚀 Publish
 description: "Publish To Npm"
 
-inputs:
-  npm_token:
-    description: The npm Token
-    required: true
 outputs:
   published_version:
     description: "Published Version from package.json"
@@ -16,8 +12,6 @@ runs:
     - name: 🚀 Publish to npm
       id: publish
       shell: bash
-      env:
-        NPM_KEY: ${{ inputs.npm_token }}
       run: |
         #!/bin/bash
         set -x
@@ -26,8 +20,8 @@ runs:
         current_version=$(jq -r '.version' package.json)
         package_name=$(jq -r '.name' package.json)
 
-        # Authenticate with npm using the token
-        printf '//registry.npmjs.org/:_authToken=${NPM_KEY}\n@venly:registry=https://registry.npmjs.org/' > .npmrc
+        # Set registry for @venly scope
+        npm config set @venly:registry https://registry.npmjs.org/
 
         # Check if version already exists
         if npm view ${package_name}@${current_version} version &>/dev/null; then
@@ -37,7 +31,7 @@ runs:
           exit 0
         fi
 
-        # Publish the npm package
+        # Publish the npm package (authenticated via OIDC trusted publishing)
         if [ "${{ github.ref }}" == "refs/heads/main" ]; then
             npm publish --verbose
         else

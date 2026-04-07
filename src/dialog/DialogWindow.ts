@@ -129,7 +129,7 @@ export class DialogWindow {
   private static addAuthEventListeners(
     clientId: string,
     options: AuthenticationOptions,
-    authResolver: (value?: LoginResult | PromiseLike<LoginResult> | undefined) => void,
+    authResolver: (value: LoginResult | PromiseLike<LoginResult>) => void,
     root: ShadowRoot
   ) {
     const authActions = root.querySelectorAll('.auth-action');
