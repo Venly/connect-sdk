@@ -52,7 +52,7 @@
     "typedoc": "^0.20.36",
     "typescript": "^3.9.10",
     "webpack": "^5.105.4",
-    "webpack-cli": "^3.3.12"
+    "webpack-cli": "^5.1.4"
   },
   "overrides": {
     "marked": "^4.3.0",
@@ -62,7 +62,9 @@
     "cross-spawn": "^7.0.6",
     "es5-ext": "^0.10.64",
     "loader-utils": "^2.0.4",
-    "brace-expansion": "^2.0.1"
+    "brace-expansion": "^2.0.3",
+    "picomatch": "^2.3.2",
+    "@types/eslint": "^8.56.12"
   },
   "files": [
     "dist",
