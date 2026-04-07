@@ -37,15 +37,15 @@ runs:
           exit 0
         fi
 
-        # Publish the npm package and capture the output
+        # Publish the npm package
         if [ "${{ github.ref }}" == "refs/heads/main" ]; then
-            npm publish --verbose || true
+            npm publish --verbose
         else
-            npm publish --tag $(echo "${{ github.ref }}" | sed 's|refs/heads/||') --verbose || true
+            npm publish --tag $(echo "${{ github.ref }}" | sed 's|refs/heads/||') --verbose
         fi
 
-        # Force push tags to handle existing tags
-        git push -f --tags origin HEAD:${{ github.ref_name }} || true
+        # Push tags
+        git push -f --tags origin HEAD:${{ github.ref_name }}
 
         # Output the version
         echo "Published version: ${current_version}"
