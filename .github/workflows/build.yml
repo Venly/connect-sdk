@@ -34,7 +34,7 @@ jobs:
       - name: ✅ Checkout
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.VENLY_GITHUB_ACTIONS_TOKEN }}
+          token: ${{ github.token }}
 
       - name: 🔍 Get Version
         uses: ./.github/actions/get_version
@@ -43,7 +43,7 @@ jobs:
         if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && (startsWith(github.ref, 'refs/heads/develop') || startsWith(github.ref, 'refs/heads/hotfix-') || startsWith(github.ref, 'refs/heads/release-'))
         uses: ./.github/actions/bump_version
         with:
-          token: ${{ secrets.VENLY_GITHUB_ACTIONS_TOKEN }}
+          token: ${{ github.token }}
           commit_message: "chore: bump version [skip ci]"
 
       - name: 🛠️ Setup Node.js 16.x
@@ -64,11 +64,11 @@ jobs:
         uses: ./.github/actions/publish_npm
         with:
           npm_token: ${{ secrets.NPM_KEY }}
-          token: ${{ secrets.VENLY_GITHUB_ACTIONS_TOKEN }}
+          token: ${{ github.token }}
 
       - name: 🔄 Merge Back
         if: startsWith(github.ref, 'refs/heads/hotfix-') || startsWith(github.ref, 'refs/heads/release-')
         uses: ./.github/actions/merge_back
         with:
           branch: ${{ github.ref_name }}
-          token: ${{ secrets.VENLY_GITHUB_ACTIONS_TOKEN }}
+          token: ${{ github.token }}

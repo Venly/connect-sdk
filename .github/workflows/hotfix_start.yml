@@ -23,8 +23,8 @@ jobs:
       - name: ✅ Checkout
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.VENLY_GITHUB_ACTIONS_TOKEN }}
+          token: ${{ github.token }}
           fetch-depth: 0
       - uses: ./.github/actions/hotfix_start
         with:
-          token: ${{ secrets.VENLY_GITHUB_ACTIONS_TOKEN }}
+          token: ${{ github.token }}
