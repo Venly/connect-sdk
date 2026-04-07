@@ -51,7 +51,7 @@
     "ts-loader": "^6.0.4",
     "typedoc": "^0.20.36",
     "typescript": "^3.9.10",
-    "webpack": "^4.47.0",
+    "webpack": "^5.105.4",
     "webpack-cli": "^3.3.12"
   },
   "overrides": {
