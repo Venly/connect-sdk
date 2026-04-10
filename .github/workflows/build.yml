@@ -61,6 +61,10 @@ jobs:
         if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && (startsWith(github.ref, 'refs/heads/develop') || startsWith(github.ref, 'refs/heads/main') || startsWith(github.ref, 'refs/heads/hotfix-') || startsWith(github.ref, 'refs/heads/release-'))
         uses: ./.github/actions/publish_npm
 
+      - name: 🧹 Cleanup Old Develop Versions
+        if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main'
+        uses: ./.github/actions/cleanup_npm_versions
+
       - name: 🔄 Merge Back
         if: startsWith(github.ref, 'refs/heads/hotfix-') || startsWith(github.ref, 'refs/heads/release-')
         uses: ./.github/actions/merge_back
