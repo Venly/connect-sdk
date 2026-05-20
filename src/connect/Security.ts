@@ -130,7 +130,7 @@ export class Security {
 
     private static updateTokenInterval: any;
     private static authenticatedListeners: Map<EventTypes, any> = new Map<EventTypes, any>();
-    private static popupWindow: PopupWindowAsync;
+    private static popupWindow?: PopupWindowAsync;
     private static logoutListener: any;
     private static isLoginPopupClosedInterval?: any;
 
