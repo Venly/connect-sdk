@@ -46,8 +46,6 @@ export { MaticErc721TransactionRequest }        from './models/transaction/matic
 export { MaticErcTokenTransactionRequest }      from './models/transaction/matic/request/MaticErcTokenTransactionRequest';
 export { MaticTransactionRequest }              from './models/transaction/matic/request/MaticTransactionRequest';
 
-export { HederaTokenAssociationTransactionRequest } from './models/transaction/hedera/HederaTokenAssociationTransactionRequest';
-
 export *                                        from './models/transaction/arbitrum/request/ArbitrumContractCallExecutionRequest';
 export { ArbitrumErc20TransactionRequest }      from './models/transaction/arbitrum/request/ArbitrumErc20TransactionRequest';
 export { ArbitrumErc721TransactionRequest }     from './models/transaction/arbitrum/request/ArbitrumErc721TransactionRequest';

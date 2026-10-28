@@ -61,7 +61,7 @@ npm run typedoc
 
 - **src/models/**: Type definitions for all API entities
   - **SecretType**: Blockchain types (ETHEREUM, MATIC, ARBITRUM, HEDERA, TRON, VECHAIN, etc.)
-  - **transaction/**: Request/response models organized by blockchain (ethereum/, matic/, arbitrum/, hedera/, tron/, vechain/, bitcoin/, etc.)
+  - **transaction/**: Request/response models organized by blockchain (ethereum/, matic/, arbitrum/, tron/, vechain/, bitcoin/, etc.)
   - **wallet/**: Wallet models including NFT, TokenBalance, WalletBalance
   - **contract/**: Contract interaction models
   - **profile/**: User profile models

@@ -5,6 +5,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Removed
+- **BREAKING:** Hedera transaction and signature requests, as Venly no longer supports Hedera. `SecretType.HEDERA` is kept for existing wallets. Removed:
+  - `HederaTokenAssociationTransactionRequest` (root export)
+  - `TransactionRequestType` entries `HBAR_TRANSFER`, `HEDERA_TOKEN_TRANSFER`, `HEDERA_NFT_TRANSFER`, `HEDERA_TOKEN_ASSOCIATION`, `HEDERA_APPROVE_ALLOWANCE`
+  - `SignatureRequestType` entries `HEDERA_HBAR_TRANSFER`, `HEDERA_RAW`
+  - Deep-importable from `dist/`: `HbarTransferTransactionRequest`, `HederaTokenTransferTransactionRequest`, `HederaNftTransferTransactionRequest`, the `HederaApproveAllowanceTransactionRequest` module (its class was misnamed `HederaTokenAssociationTransactionRequest`) with `AllowanceType`, and `HederaTxInfo` with `HederaTransfer` and `HederaTokenTransfer`
+- Removing these exports requires a major version bump.
 
 ## [2.4.0]
 ### Added

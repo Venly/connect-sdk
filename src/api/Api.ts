@@ -10,7 +10,6 @@ import { ContractReadRequest }     from '../models/contract/ContractReadRequest'
 import { ContractReadResult }      from '../models/contract/ContractReadResult';
 import { RestApiResponseTxStatus } from '../models/transaction/status/RestApiResponseTxStatus';
 import { EvmTxInfo }               from '../models/transaction/status/EvmTxInfo';
-import { HederaTxInfo }            from '../models/transaction/status/HederaTxInfo';
 import { TronTxInfo }              from '../models/transaction/status/TronTxInfo';
 import { VechainTxInfo }           from '../models/transaction/status/VechainTxInfo';
 
@@ -194,8 +193,6 @@ export class Api {
         switch (secretType) {
             case SecretType.AVAC || SecretType.BSC || SecretType.ETHEREUM || SecretType.GOCHAIN || SecretType.MATIC || SecretType.ARBITRUM:
                 return this.processResponse<EvmTxInfo>(response);
-            case SecretType.HEDERA:
-                return this.processResponse<HederaTxInfo>(response);
             case SecretType.TRON:
                 return this.processResponse<TronTxInfo>(response);
             case SecretType.VECHAIN:
